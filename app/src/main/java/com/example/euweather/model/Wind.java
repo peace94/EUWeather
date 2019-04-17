@@ -2,15 +2,15 @@ package com.example.euweather.model;
 
 public class Wind {
     private Float speed;
-    private Integer deg;
+    private Float deg;
 
     public Wind() { }
 
     public Float getSpeed() { return speed; }
     public void setSpeed(Float speed) { this.speed = speed; }
 
-    public Integer getDeg() { return deg; }
-    public void setDeg(Integer deg) { this.deg = deg; }
+    public Float getDeg() { return deg; }
+    public void setDeg(Float deg) { this.deg = deg; }
 
     @Override
     public String toString() {

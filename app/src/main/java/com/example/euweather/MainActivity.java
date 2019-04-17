@@ -1,16 +1,20 @@
 package com.example.euweather;
 
 import android.content.Intent;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.example.euweather.model.ManyCitiesResponse;
 import com.example.euweather.model.WeatherInfo;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,8 +29,8 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView my_recycler;
     private FloatingActionButton edit_button;
     private List<CityEnum> cities = new ArrayList<>();
-    MyAPI myApi;
-    MyAdapter adapter;
+    private MyAPI myApi;
+    private MyAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,33 +66,49 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-        MyApplication myApplication = MyApplication.getMyApplicationInstance();
-        myApi = myApplication.getMyApi();
+        myApi = MyApplication.getMyApplicationInstance().getMyApi();
 
         getInfoByCities();
-
-
-
-
     }
 
     private void getInfoByCities() {
-        adapter.values.clear();
-        for(CityEnum city: cities){
-            myApi.getWeather(city.getId(), MyApplication.APP_ID).enqueue(new Callback<WeatherInfo>() {
-                @Override
-                public void onResponse(Call<WeatherInfo> call, Response<WeatherInfo> response) {
-                    adapter.addValue(response.body());
-                }
 
-                @Override
-                public void onFailure(Call<WeatherInfo> call, Throwable t) {
-                    System.out.println("EXCEPTION: " + t);
-                }
-            });
+        adapter.clearData();
+
+        StringBuilder ids = new StringBuilder();
+        for (CityEnum city : cities) {
+            ids.append(city.getId()).append(",");
+        }
+        if (ids.length() > 0) {
+            ids.deleteCharAt(ids.length() - 1);
         }
 
+        myApi.getManyCitiesWeather(ids.toString(), MyApplication.APP_ID, "metric")
+                .enqueue(new Callback<ManyCitiesResponse>() {
+                    @Override
+                    public void onResponse(Call<ManyCitiesResponse> call, Response<ManyCitiesResponse> response) {
+                        adapter.setValues(response.body().getWeatherInfoList());
+                    }
+
+                    @Override
+                    public void onFailure(Call<ManyCitiesResponse> call, Throwable t) {
+                        t.printStackTrace();
+                    }
+                });
+
+//        for(CityEnum city: cities){
+//            myApi.getWeather(city.getId(), MyApplication.APP_ID, "metric").enqueue(new Callback<WeatherInfo>() {
+//                @Override
+//                public void onResponse(Call<WeatherInfo> call, Response<WeatherInfo> response) {
+//                    adapter.addValue(response.body());
+//                }
+//
+//                @Override
+//                public void onFailure(Call<WeatherInfo> call, Throwable t) {
+//                    System.out.println("EXCEPTION: " + t);
+//                }
+//            });
+//        }
     }
 
     @Override

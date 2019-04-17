@@ -9,13 +9,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.euweather.model.WeatherInfo;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
-    List<WeatherInfo> values = new ArrayList<>();
+    private List<WeatherInfo> values = new ArrayList<>();
+
+    public void clearData() {
+        values.clear();
+    }
 
     @NonNull
     @Override
@@ -29,39 +34,43 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
-        myViewHolder.cityName.setText("City: " + values.get(i).getName());
-        myViewHolder.main.setText("State: " + values.get(i).getWeather().get(0).getMain());
-        myViewHolder.description.setText("Description: " + values.get(i).getWeather().get(0).getDescription());
-        myViewHolder.temp.setText("Temperature: " + (Float.valueOf(values.get(i).getMain().getTemp()).intValue() - 273) + " 'C");
-        myViewHolder.pressure.setText("Pressure: " + values.get(i).getMain().getPressure() + " hpa");
-        myViewHolder.humidity.setText("Humidity: " + values.get(i).getMain().getHumidity() + " %");
-        myViewHolder.wind.setText("Wind speed: " + values.get(i).getWind().getSpeed() + " m/s");
+    public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int position) {
+        myViewHolder.cityName.setText("City: " + values.get(position).getName());
+        myViewHolder.main.setText("State: " + values.get(position).getWeather().get(0).getMain());
+        myViewHolder.description.setText("Description: " + values.get(position).getWeather().get(0).getDescription());
+        myViewHolder.temp.setText("Temperature: " + values.get(position).getMain().getTemp() + " 'C");
+        myViewHolder.pressure.setText("Pressure: " + values.get(position).getMain().getPressure() + " hpa");
+        myViewHolder.humidity.setText("Humidity: " + values.get(position).getMain().getHumidity() + " %");
+        myViewHolder.wind.setText("Wind speed: " + values.get(position).getWind().getSpeed() + " m/s");
 
-        switch (values.get(i).getWeather().get(0).getId() / 100) {
-            case 2:
-                myViewHolder.ico.setImageResource(R.drawable.thunder);
-                break;
-            case 3:
-            case 5:
-                myViewHolder.ico.setImageResource(R.drawable.rain);
-                break;
-            case 6:
-                myViewHolder.ico.setImageResource(R.drawable.snow);
-                break;
-            case 7:
-                myViewHolder.ico.setImageResource(R.drawable.sun);
-                break;
-            case 8:
-                if (values.get(i).getWeather().get(0).getId() > 800)
-                    myViewHolder.ico.setImageResource(R.drawable.cloudandsun);
-                else
-                    myViewHolder.ico.setImageResource(R.drawable.sun);
-                break;
-            default:
-                myViewHolder.ico.setImageResource(R.drawable.nature);
+        Picasso.get()
+                .load("https://cdn3.iconfinder.com/data/icons/bebreezee-weather-symbols/690/icon-weather-sunrainheavy-512.png")
+                .fit()
+                .into(myViewHolder.ico);
 
-        }
+//        switch (values.get(i).getWeather().get(0).getId() / 100) {
+//            case 2:
+//                myViewHolder.ico.setImageResource(R.drawable.thunder);
+//                break;
+//            case 3:
+//            case 5:
+//                myViewHolder.ico.setImageResource(R.drawable.rain);
+//                break;
+//            case 6:
+//                myViewHolder.ico.setImageResource(R.drawable.snow);
+//                break;
+//            case 7:
+//                myViewHolder.ico.setImageResource(R.drawable.sun);
+//                break;
+//            case 8:
+//                if (values.get(i).getWeather().get(0).getId() > 800)
+//                    myViewHolder.ico.setImageResource(R.drawable.cloudandsun);
+//                else
+//                    myViewHolder.ico.setImageResource(R.drawable.sun);
+//                break;
+//            default:
+//                myViewHolder.ico.setImageResource(R.drawable.nature);
+//        }
 
 
         myViewHolder.layout.setOnClickListener(new View.OnClickListener() {

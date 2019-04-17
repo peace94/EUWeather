@@ -1,81 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="8dp"
+    app:cardBackgroundColor="@color/colorGreen"
     android:layout_height="wrap_content"
-    android:layout_margin="5dp"
-    android:background="@color/colorBlue">
+    android:layout_margin="16dp">
 
-    <ImageView
-        android:id="@+id/myItemMenuIcon"
-        android:layout_width="80dp"
-        android:layout_height="60dp"
-        android:layout_margin="5dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/myItemMenuTitleCity"
-        android:layout_width="300dp"
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/myItemMenuIcon"/>
+        android:padding="8dp">
 
-    <TextView
-        android:id="@+id/myItemMenuTitleMain"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@id/myItemMenuTitleCity"
-        app:layout_constraintStart_toEndOf="@+id/myItemMenuIcon"/>
+        <ImageView
+            android:id="@+id/myItemMenuIcon"
+            android:layout_width="80dp"
+            android:layout_height="60dp"
+            android:layout_margin="5dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/thunder" />
 
-    <TextView
-        android:id="@+id/myItemMenuTitleDescription"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@id/myItemMenuTitleMain"
-        app:layout_constraintStart_toEndOf="@+id/myItemMenuIcon"/>
+        <TextView
+            android:id="@+id/myItemMenuTitleCity"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/myItemMenuIcon"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="City: Saratov" />
 
-    <TextView
-        android:id="@+id/myItemMenuTitleTemp"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@id/myItemMenuTitleDescription"
-        app:layout_constraintStart_toEndOf="@+id/myItemMenuIcon"/>
+        <TextView
+            android:id="@+id/myItemMenuTitleMain"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@+id/myItemMenuIcon"
+            app:layout_constraintTop_toBottomOf="@id/myItemMenuTitleCity"
+            tools:text="Clear" />
 
-    <TextView
-        android:id="@+id/myItemMenuTitlePressure"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@id/myItemMenuTitleTemp"
-        app:layout_constraintStart_toEndOf="@+id/myItemMenuIcon"/>
+        <TextView
+            android:id="@+id/myItemMenuTitleDescription"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@+id/myItemMenuIcon"
+            app:layout_constraintTop_toBottomOf="@id/myItemMenuTitleMain"
+            tools:text="clear sky" />
 
-    <TextView
-        android:id="@+id/myItemMenuTitleHumidity"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@id/myItemMenuTitlePressure"
-        app:layout_constraintStart_toEndOf="@+id/myItemMenuIcon"/>
+        <TextView
+            android:id="@+id/myItemMenuTitleTemp"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@+id/myItemMenuIcon"
+            app:layout_constraintTop_toBottomOf="@id/myItemMenuTitleDescription"
+            tools:text="25 C" />
 
-    <TextView
-        android:id="@+id/myItemMenuTitleWind"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@id/myItemMenuTitleHumidity"
-        app:layout_constraintStart_toEndOf="@+id/myItemMenuIcon"/>
+        <TextView
+            android:id="@+id/myItemMenuTitlePressure"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@+id/myItemMenuIcon"
+            app:layout_constraintTop_toBottomOf="@id/myItemMenuTitleTemp"
+            tools:text="1050 hpa" />
 
-</android.support.constraint.ConstraintLayout>
+        <TextView
+            android:id="@+id/myItemMenuTitleHumidity"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@+id/myItemMenuIcon"
+            app:layout_constraintTop_toBottomOf="@id/myItemMenuTitlePressure"
+            tools:text="61%" />
+
+        <TextView
+            android:id="@+id/myItemMenuTitleWind"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@+id/myItemMenuIcon"
+            app:layout_constraintTop_toBottomOf="@id/myItemMenuTitleHumidity"
+            tools:text="speed: 5.0 m/s" />
+
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.v7.widget.CardView>
