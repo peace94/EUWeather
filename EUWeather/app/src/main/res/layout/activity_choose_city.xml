@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ChooseCity"
+    android:gravity="center_vertical"
+    android:orientation="vertical">
+
+    <CheckBox
+        android:id="@+id/idMoscow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Moscow"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginBottom="20dp"/>
+
+    <CheckBox
+        android:id="@+id/idKaluga"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Kaluga"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginBottom="20dp"/>
+
+    <CheckBox
+        android:id="@+id/idKaliningrad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Kaliningrad"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginBottom="20dp"/>
+
+    <CheckBox
+        android:id="@+id/idOmsk"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Omsk"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginBottom="20dp"/>
+
+    <CheckBox
+        android:id="@+id/idNovosibirsk"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Novosibirsk"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginBottom="20dp"/>
+
+    <CheckBox
+        android:id="@+id/idMurmansk"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Murmansk"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginBottom="20dp"/>
+
+    <Button
+        android:id="@+id/sendAnswer"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="30dp"
+        android:onClick="sendAnswer"
+        android:text="Ok"/>
+
+
+</LinearLayout>

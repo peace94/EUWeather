@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:background="@color/colorBlue">
+
+    <ImageView
+        android:id="@+id/myItemMenuIcon"
+        android:layout_width="80dp"
+        android:layout_height="60dp"
+        android:layout_margin="5dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/myItemMenuTitleCity"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/myItemMenuIcon"/>
+
+    <TextView
+        android:id="@+id/myItemMenuTitleMain"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/myItemMenuTitleCity"
+        app:layout_constraintStart_toEndOf="@+id/myItemMenuIcon"/>
+
+    <TextView
+        android:id="@+id/myItemMenuTitleDescription"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/myItemMenuTitleMain"
+        app:layout_constraintStart_toEndOf="@+id/myItemMenuIcon"/>
+
+    <TextView
+        android:id="@+id/myItemMenuTitleTemp"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/myItemMenuTitleDescription"
+        app:layout_constraintStart_toEndOf="@+id/myItemMenuIcon"/>
+
+    <TextView
+        android:id="@+id/myItemMenuTitlePressure"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/myItemMenuTitleTemp"
+        app:layout_constraintStart_toEndOf="@+id/myItemMenuIcon"/>
+
+    <TextView
+        android:id="@+id/myItemMenuTitleHumidity"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/myItemMenuTitlePressure"
+        app:layout_constraintStart_toEndOf="@+id/myItemMenuIcon"/>
+
+    <TextView
+        android:id="@+id/myItemMenuTitleWind"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/myItemMenuTitleHumidity"
+        app:layout_constraintStart_toEndOf="@+id/myItemMenuIcon"/>
+
+</android.support.constraint.ConstraintLayout>
