@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.euweather.model.WeatherInfo;
@@ -19,7 +20,11 @@ import java.util.List;
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     private List<WeatherInfo> values = new ArrayList<>();
-    private Context context;
+    private AdapterInteractionListener interactionListener;
+
+    public MyAdapter(AdapterInteractionListener interactionListener) {
+        this.interactionListener = interactionListener;
+    }
 
     public void clearData() {
         values.clear();
@@ -47,11 +52,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         myViewHolder.wind.setText("Wind speed: " + values.get(position).getWind().getSpeed() + " m/s");
         Glide.with(myViewHolder.ico).load(values.get(position).getIconUrl()).into(myViewHolder.ico);
 
-
         myViewHolder.layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                interactionListener.onWeatherItemClicked(position);
             }
         });
 
@@ -98,5 +102,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             wind = itemView.findViewById(R.id.myItemMenuTitleWind);
 
         }
+    }
+
+    interface AdapterInteractionListener {
+        void onWeatherItemClicked(int position);
     }
 }

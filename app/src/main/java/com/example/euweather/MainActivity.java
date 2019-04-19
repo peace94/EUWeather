@@ -1,34 +1,38 @@
 package com.example.euweather;
 
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.example.euweather.model.ManyCitiesResponse;
 import com.example.euweather.model.WeatherInfo;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MyAdapter.AdapterInteractionListener{
 
     private static final int CODE = 0;
 
     private RecyclerView my_recycler;
+    private List<WeatherInfo> weatherInfoList = new ArrayList<>();
     private FloatingActionButton edit_button;
-    private List<CityEnum> cities = new ArrayList<>();
+    private List<CityEnum> cityEnums = new ArrayList<>();
     private MyAPI myApi;
     private MyAdapter adapter;
 
@@ -37,31 +41,31 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        adapter = new MyAdapter();
+        adapter = new MyAdapter(this);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
 
         my_recycler = findViewById(R.id.myRecycler);
         my_recycler.setLayoutManager(layoutManager);
         my_recycler.setAdapter(adapter);
 
-        cities.add(CityEnum.MOSCOW);
-        cities.add(CityEnum.KALUGA);
-        cities.add(CityEnum.KALININGRAD);
-        cities.add(CityEnum.MURMANSK);
-        cities.add(CityEnum.NOVOSIBIRSK);
-        cities.add(CityEnum.OMSK);
+        cityEnums.add(CityEnum.MOSCOW);
+        cityEnums.add(CityEnum.KALUGA);
+        cityEnums.add(CityEnum.KALININGRAD);
+        cityEnums.add(CityEnum.MURMANSK);
+        cityEnums.add(CityEnum.NOVOSIBIRSK);
+        cityEnums.add(CityEnum.OMSK);
 
         edit_button = findViewById(R.id.EditButton);
         edit_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), ChooseCity.class);
-                intent.putExtra(CityEnum.MOSCOW.getName(), cities.contains(CityEnum.MOSCOW));
-                intent.putExtra(CityEnum.KALUGA.getName(), cities.contains(CityEnum.KALUGA));
-                intent.putExtra(CityEnum.KALININGRAD.getName(), cities.contains(CityEnum.KALININGRAD));
-                intent.putExtra(CityEnum.OMSK.getName(), cities.contains(CityEnum.OMSK));
-                intent.putExtra(CityEnum.NOVOSIBIRSK.getName(), cities.contains(CityEnum.NOVOSIBIRSK));
-                intent.putExtra(CityEnum.MURMANSK.getName(), cities.contains(CityEnum.MURMANSK));
+                intent.putExtra(CityEnum.MOSCOW.getName(), cityEnums.contains(CityEnum.MOSCOW));
+                intent.putExtra(CityEnum.KALUGA.getName(), cityEnums.contains(CityEnum.KALUGA));
+                intent.putExtra(CityEnum.KALININGRAD.getName(), cityEnums.contains(CityEnum.KALININGRAD));
+                intent.putExtra(CityEnum.OMSK.getName(), cityEnums.contains(CityEnum.OMSK));
+                intent.putExtra(CityEnum.NOVOSIBIRSK.getName(), cityEnums.contains(CityEnum.NOVOSIBIRSK));
+                intent.putExtra(CityEnum.MURMANSK.getName(), cityEnums.contains(CityEnum.MURMANSK));
                 startActivityForResult(intent, CODE);
             }
         });
@@ -76,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
         adapter.clearData();
 
         StringBuilder ids = new StringBuilder();
-        for (CityEnum city : cities) {
+        for (CityEnum city : cityEnums) {
             ids.append(city.getId()).append(",");
         }
         if (ids.length() > 0) {
@@ -87,8 +91,8 @@ public class MainActivity extends AppCompatActivity {
                 .enqueue(new Callback<ManyCitiesResponse>() {
                     @Override
                     public void onResponse(Call<ManyCitiesResponse> call, Response<ManyCitiesResponse> response) {
-                        adapter.setValues(response.body().getWeatherInfoList());
-                        System.out.println(response.body().getWeatherInfoList().get(0).getWeather().get(0).getIcon());
+                        weatherInfoList = response.body().getWeatherInfoList();
+                        adapter.setValues(weatherInfoList);
                     }
 
                     @Override
@@ -97,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-//        for(CityEnum city: cities){
+//        for(CityEnum city: cityEnums){
 //            myApi.getWeather(city.getId(), MyApplication.APP_ID, "metric").enqueue(new Callback<WeatherInfo>() {
 //                @Override
 //                public void onResponse(Call<WeatherInfo> call, Response<WeatherInfo> response) {
@@ -117,20 +121,112 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == RESULT_OK) {
-            cities.clear();
+            cityEnums.clear();
             if (data.getBooleanExtra(CityEnum.MOSCOW.getName(), false))
-                cities.add(CityEnum.MOSCOW);
+                cityEnums.add(CityEnum.MOSCOW);
             if (data.getBooleanExtra(CityEnum.KALUGA.getName(), false))
-                cities.add(CityEnum.KALUGA);
+                cityEnums.add(CityEnum.KALUGA);
             if (data.getBooleanExtra(CityEnum.KALININGRAD.getName(), false))
-                cities.add(CityEnum.KALININGRAD);
+                cityEnums.add(CityEnum.KALININGRAD);
             if (data.getBooleanExtra(CityEnum.OMSK.getName(), false))
-                cities.add(CityEnum.OMSK);
+                cityEnums.add(CityEnum.OMSK);
             if (data.getBooleanExtra(CityEnum.NOVOSIBIRSK.getName(), false))
-                cities.add(CityEnum.NOVOSIBIRSK);
+                cityEnums.add(CityEnum.NOVOSIBIRSK);
             if (data.getBooleanExtra(CityEnum.MURMANSK.getName(), false))
-                cities.add(CityEnum.MURMANSK);
+                cityEnums.add(CityEnum.MURMANSK);
             getInfoByCities();
         }
+    }
+
+//    void showMyDialog(int position) {
+//        EditText input = new EditText(this);
+//        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+//                LinearLayout.LayoutParams.MATCH_PARENT,
+//                LinearLayout.LayoutParams.MATCH_PARENT
+//        );
+//        input.setLayoutParams(layoutParams);
+//
+//        new AlertDialog.Builder(this)
+//                .setPositiveButton("ADD", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        Toast.makeText(MainActivity.this, "ADDED", Toast.LENGTH_SHORT).show();
+//                    }
+//                })
+//                .setNegativeButton("DELETE", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        Toast.makeText(MainActivity.this, "DELETED", Toast.LENGTH_SHORT).show();
+//                    }
+//                })
+//                .setNeutralButton("CANCEL", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        Toast.makeText(MainActivity.this, "CANCELLED", Toast.LENGTH_SHORT).show();
+//                    }
+//                })
+//                .setView(input)
+//                .setTitle("What do you want?")
+//                .create()
+//                .show();
+//
+//
+//    }
+
+    @Override
+    public void onWeatherItemClicked(int position) {
+        Toast.makeText(this, "clicked on+" + position , Toast.LENGTH_SHORT).show();
+//        showMyDialog(position);
+        EditText input = new EditText(this);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT
+        );
+        input.setLayoutParams(layoutParams);
+        new AlertDialog.Builder(this)
+                .setPositiveButton("ADD", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(MainActivity.this, "ADDED", Toast.LENGTH_SHORT).show();
+                        String randomCityId =new String().valueOf(new Random().nextInt(99999));
+                        myApi.getWeather(input.getText().toString(),MyApplication.APP_ID,"metric").enqueue(new Callback<WeatherInfo>() {
+                            @Override
+                            public void onResponse(Call<WeatherInfo> call, Response<WeatherInfo> response) {
+                                if(response.isSuccessful()) {
+                                    weatherInfoList.add(position, response.body());
+                                    adapter.setValues(weatherInfoList);
+                                } else {
+                                    Toast.makeText(MainActivity.this, "errorIfSucc", Toast.LENGTH_SHORT).show();
+                                }
+
+                            }
+
+                            @Override
+                            public void onFailure(Call<WeatherInfo> call, Throwable t) {
+                                t.printStackTrace();
+                                Toast.makeText(MainActivity.this, "errorCityId", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                })
+                .setNegativeButton("DELETE", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(MainActivity.this, "DELETED", Toast.LENGTH_SHORT).show();
+                        weatherInfoList.remove(position);
+                        adapter.setValues(weatherInfoList);
+                    }
+                })
+                .setNeutralButton("CANCEL", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(MainActivity.this, "CANCELLED", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .setView(input)
+                .setTitle("What do you want?")
+                .create()
+                .show();
+
     }
 }
