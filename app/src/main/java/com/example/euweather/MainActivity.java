@@ -88,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<ManyCitiesResponse> call, Response<ManyCitiesResponse> response) {
                         adapter.setValues(response.body().getWeatherInfoList());
+                        System.out.println(response.body().getWeatherInfoList().get(0).getWeather().get(0).getIcon());
                     }
 
                     @Override

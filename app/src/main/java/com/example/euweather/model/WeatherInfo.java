@@ -1,5 +1,7 @@
 package com.example.euweather.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 public class WeatherInfo {
@@ -15,6 +17,12 @@ public class WeatherInfo {
     private Integer id;
     private String name;
     private Integer cod;
+
+   /* public class WeatherDescription {
+        String icon;
+    }
+    @SerializedName("weather")
+    private List<WeatherDescription> iconName;*/
 
     public WeatherInfo() { }
 
@@ -54,12 +62,17 @@ public class WeatherInfo {
     public Integer getCod() { return cod; }
     public void setCod(Integer cod) { this.cod = cod; }
 
+    public String getIconUrl() {
+        return "http://openweathermap.org/img/w/" + weather.get(0).getIcon() + ".png";
+    }
+
     @Override
     public String toString() {
         return "WeatherInfo{" +
                 "coord=" + coord +
                 ", weather=" + weather +
-                ", base='" + base + '\'' +
+                ", base=" + base + '\'' +
+                ", icon=" + weather.get(0).getIcon()+ '\'' +
                 ", main=" + main +
                 ", visibility=" + visibility +
                 ", wind=" + wind +

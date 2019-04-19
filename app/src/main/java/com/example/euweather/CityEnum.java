@@ -6,7 +6,7 @@ public enum CityEnum {
     KALININGRAD (2, "Kaliningrad", "554234"),
     OMSK (3, "Omsk", "1496153"),
     NOVOSIBIRSK(4, "Novosibirsk", "1496747"),
-    MURMANSK(5, "Murmansk", "524305");
+   MURMANSK(5, "Vladivostok", "2013348");
 
     private int code;
     private String name;
